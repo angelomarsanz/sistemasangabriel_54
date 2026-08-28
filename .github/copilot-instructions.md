@@ -1,4 +1,4 @@
-# Información para el sistema San Gabriel
+# Información para el sistema San Gabriel 5.4
 
 ## Memoria de Sesiones (Gemini CLI)
 - **Log de Progreso:** Cada vez que inicies una nueva sesión, debes leer obligatoriamente el archivo `LOG_DESARROLLO_REDA.md`. Esto te permitirá recordar automáticamente todos los trabajos realizados anteriormente sin que el usuario tenga que repetirlos.
@@ -141,7 +141,7 @@ En todas las vistas de índice, listados se deben mostrar los controles de pagin
 
 ## Subida de archivos al servidor Vesta de Desarrollo
 
-## Documentación archivos del plugin
+## Documentación del sistema
 Todos los archivos que se creen deben documentarse al inicio del archivo. Crear un resumen de lo que hace el archivo. Así también cada función que contenga ese archivo debe documentarse
 Además de documentar individualmente cada archivo, cada vez que se cree un archivo se debe agregar un resumen de la documentación de ese archivo en manual_tecnico_sistema.md : Se coloca el nombre del archivo como un título y luego dejando una sangría se coloca el resumen.
 Si se modifica el archivo se debe modificar tanto el resumen que se hace directamente en el archivo como el resumen en el archivo manual_tecnico_sistema.md
