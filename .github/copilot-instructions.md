@@ -1,6 +1,12 @@
 # Información para el sistema San Gabriel 5.4
 
+## Interacción con la IA y Modo de Trabajo Autónomo
+- **Ejecución Autónoma y Directa de Cambios:** Cuando el usuario solicite realizar cualquier cambio, ajuste o nueva funcionalidad, la IA debe trabajar de forma autónoma e independiente, aplicando las modificaciones y creando el código necesario de manera automática y directa en los archivos del proyecto, **SIN hacer pausas intermedias** ni detenerse a pedir que el usuario acepte o rechace el código paso a paso.
+- **Punto de Control Progresivo:** Durante el desarrollo, la IA registrará en tiempo real el avance y los archivos modificados en `previo_cambios_realizados.md` como salvaguarda ante cortes imprevistos de energía o internet.
+
 ## Memoria de Sesiones (Gemini CLI)
+- **Punto de Control en Procesos Extensos (`previo_cambios_realizados.md`):** Al iniciar cualquier tarea o sesión de modificaciones, la IA debe leer obligatoriamente el archivo `previo_cambios_realizados.md` en la raíz del proyecto para refrescar la memoria sobre el punto exacto donde quedaron los cambios si ocurrió una caída de conexión a Internet o corte de electricidad. Inmediatamente después de leerlo para refrescar el contexto, debe vaciar/reinicializar el archivo con la nueva tarea en curso para evitar acumular basura de sesiones anteriores. Durante el desarrollo de tareas extensas o cambios que involucren múltiples archivos, la IA debe ir registrando progresivamente en `previo_cambios_realizados.md` cada archivo modificado o creado y el avance previo a medida que lo va realizando, sirviendo como salvaguarda en tiempo real. Al culminar la tarea completa, se traslada el informe final definitivo a `LOG_DESARROLLO_REDA.md` y `manual_tecnico_sistema.md`.
+
 - **Log de Progreso:** Cada vez que inicies una nueva sesión, debes leer obligatoriamente el archivo `LOG_DESARROLLO_REDA.md`. Esto te permitirá recordar automáticamente todos los trabajos realizados anteriormente sin que el usuario tenga que repetirlos.
 - **Registro de Avances:** Al finalizar una tarea importante, actualiza dicho archivo con un resumen técnico de los cambios.
 - **Exportación de Conversaciones:** Para guardar el diálogo literal, utiliza el comando `/chat share last_chat_export.md` en la terminal de Gemini CLI y luego ejecuta el script `./registrar_sesion.sh` en la terminal de la aplicación.
@@ -118,9 +124,6 @@ Si por ejemplo en alguna respuesta de una función el atributo "respuesta" del j
 
 ## Interacción con la IA
 Por favor explicar de manera pedagógica cualquier cambio realizado en el plugin o cualquier código nuevo agregado. Cuando sean cambios particionar la pantalla, en el lado izquierdo mostrar el archivo original completo y en el lado derecho el archivo modificado completo. Resaltando con color las líneas modificadas, eliminadas o agregadas y mostrar la opción de aceptar o rechazar el cambio
-
-## Autorización de codigo nuevo o modificado
-Cuando se terminen de agregar código nuevo en un archivo o se haya modificado el existente, siempre se debe hacer una pausa y mostrar los cambios en una pantalla dividida en dos: En el lado izquierdo el archivo original y en el derecho el archivo con las sugerencias de código nuevo o modificado, con un botón de aceptar o rechazar y siempre se debe esperar que yo ACEPTE O RECHACE el código por favor
 
 ## Manipulación de imágenes
 

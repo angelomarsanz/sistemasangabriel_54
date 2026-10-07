@@ -53,8 +53,8 @@ yarn-debug.log
 yarn-error.log
 
 # Documentacion y copias
-/Documentacion/
-/documentacion/
+/Documentacion*/
+/documentacion*/
 archivos_chat_gemini/
 *copy*
 *copia*
