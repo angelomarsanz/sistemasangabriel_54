@@ -119,6 +119,13 @@ Si por ejemplo en alguna respuesta de una función el atributo "respuesta" del j
 ## Traducciones
 
 ## PC LOCAL, servidor del IDE Cloud Shell Editor y servidor VESTA DE DESARROLLO
+- **Entorno Cloud Shell Editor (Efímero vs Persistente):**
+  - Solo el directorio `$HOME` (`/home/angelomarsanz`) es persistente entre sesiones. Los paquetes instalados en el sistema raíz mediante `apt-get` se restablecen si el contenedor de Cloud Shell se reinicia.
+  - Para garantizar la persistencia automática entre sesiones, el archivo `~/.customize_environment` en el home se encarga de instalar automáticamente al arranque: `php8.3-intl`, `php8.3-sqlite3` y `mariadb-server`.
+  - El directorio de datos (`datadir`) de MariaDB se encuentra configurado de manera persistente en `/home/angelomarsanz/mariadb_data` mediante `/etc/mysql/conf.d/persistencia.cnf`. Esto evita tener que volver a importar la base de datos tras un reinicio del contenedor.
+- **Protocolo de Verificación del Entorno:**
+  - Antes de ejecutar comandos de CakePHP o levantar el servidor de desarrollo, la IA debe validar que las extensiones requeridas (`intl`, `sqlite3`) y el servicio de base de datos `mariadb` se encuentren instalados y activos.
+  - Si alguna extensión o servicio falta tras un reinicio de la máquina, debe ejecutarse inmediatamente `./preparar_entorno.sh` en la raíz del proyecto para restaurar el entorno completo en segundos.
 
 ## Escribir en el log de Cakephp
 

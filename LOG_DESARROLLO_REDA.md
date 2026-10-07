@@ -21,3 +21,17 @@
 ### Estado Actual:
 - Base de datos operativa con estructura y datos reales completa conectada a CakePHP.
 - Servidor CakePHP ejecutándose en segundo plano en Cloud Shell en el puerto 8080.
+
+## [2026-10-07] - Persistencia del Entorno Cloud Shell y Gestión de Dependencias
+### Cambios Realizados:
+- **Diagnóstico de Entorno Efímero:** Se determinó que Cloud Shell recrea el contenedor Docker al reiniciarse o cerrarse por inactividad, eliminando paquetes de sistema en `/usr` y `/var` (`php8.3-intl`, `php8.3-sqlite3`, `mariadb-server`).
+- **Instalación y Reactivación:** Se reinstalaron las extensiones `php8.3-intl` y `php8.3-sqlite3`, así como `mariadb-server`.
+- **Persistencia de Base de Datos en `$HOME`:** Se reubicó el `datadir` de MariaDB a una carpeta permanente en el almacenamiento persistente (`/home/angelomarsanz/mariadb_data`) mediante `/etc/mysql/conf.d/persistencia.cnf`. Se restauró el volcado completo de la base de datos `angeltest_sangabriel` con sus 41 tablas y usuario configurado.
+- **Automatización de Arranque (`~/.customize_environment`):** Se configuró el script nativo de Cloud Shell `~/.customize_environment` para que en cada inicio del contenedor instale automáticamente las extensiones de PHP, configure MariaDB y levante el servicio sin intervención manual.
+- **Script de Verificación Rápida (`preparar_entorno.sh`):** Se creó en la raíz del proyecto el script `./preparar_entorno.sh` para diagnosticar y restablecer dependencias y servicios en segundos.
+- **Actualización de Mandatos (`GEMINI.md` y `~/.gemini/GEMINI.md`):** Se incorporó como actividad obligatoria en las instrucciones de la IA la verificación previa de dependencias y servicios antes de ejecutar tareas en Cloud Shell.
+
+### Estado Actual:
+- Extensiones PHP (`intl`, `sqlite3`) activas en PHP 8.3.
+- Base de datos MariaDB activa con persistencia garantizada en `/home/angelomarsanz/mariadb_data`.
+- CakePHP 5.4.1 operativo y probado con `bin/cake routes`.
