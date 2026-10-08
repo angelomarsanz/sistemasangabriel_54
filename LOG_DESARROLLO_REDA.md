@@ -35,3 +35,15 @@
 - Extensiones PHP (`intl`, `sqlite3`) activas en PHP 8.3.
 - Base de datos MariaDB activa con persistencia garantizada en `/home/angelomarsanz/mariadb_data`.
 - CakePHP 5.4.1 operativo y probado con `bin/cake routes`.
+
+## [2026-10-08] - Configuración de zend.assertions para Entorno de Desarrollo CakePHP 5
+### Cambios Realizados:
+- **Diagnóstico de zend.assertions:** Se identificó que PHP 8.3 CLI tenía por defecto `zend.assertions = -1` (modo producción/zero-cost), lo que generaba una advertencia en la pantalla de bienvenida de CakePHP 5 recomendando configurarlo en `1` para compilar y ejecutar aserciones en desarrollo.
+- **Configuración en PHP 8.3:** Se creó la directiva en `/etc/php/8.3/mods-available/cakephp-dev.ini`, se habilitó mediante `phpenmod` y se actualizó `/etc/php/8.3/cli/php.ini` fijando `zend.assertions = 1`.
+- **Persistencia en Reinicios:** Se integró la configuración en `preparar_entorno.sh` y en el script de arranque persistente de Cloud Shell `~/.customize_environment`.
+- **Validación:** Se comprobó mediante `ini_get('zend.assertions')` (retornando `1`), ejecución exitosa de pruebas unitarias (`vendor/bin/phpunit`) y eliminación de la advertencia en `templates/Pages/home.php`.
+
+### Estado Actual:
+- `zend.assertions = 1` activo y persistente en el entorno de desarrollo.
+- Suite de pruebas ejecutándose satisfactoriamente (9 tests, 23 assertions).
+- Pantalla de bienvenida de CakePHP 5 sin advertencias de configuración de PHP.

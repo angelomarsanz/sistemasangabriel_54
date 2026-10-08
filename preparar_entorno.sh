@@ -24,6 +24,20 @@ else
     echo "Extensiones PHP (intl, sqlite3) ya se encuentran instaladas."
 fi
 
+echo "=== Verificando configuración de zend.assertions ==="
+if [ "$(php -r 'echo ini_get("zend.assertions");')" != "1" ]; then
+    echo "Configurando zend.assertions = 1..."
+    sudo bash -c 'cat << "EOF" > /etc/php/8.3/mods-available/cakephp-dev.ini
+; Configuración para entorno de desarrollo CakePHP 5
+zend.assertions = 1
+EOF'
+    sudo phpenmod cakephp-dev
+    sudo sed -i 's/^zend.assertions\s*=\s*-1/zend.assertions = 1/' /etc/php/8.3/cli/php.ini
+    echo "zend.assertions configurado a 1."
+else
+    echo "zend.assertions ya está configurado en 1."
+fi
+
 echo "=== Verificando MariaDB Server ==="
 if ! command -v mariadbd >/dev/null 2>&1; then
     echo "Instalando MariaDB Server..."

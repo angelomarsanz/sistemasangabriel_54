@@ -10,10 +10,11 @@ Google Cloud Shell opera dentro de un contenedor Docker efímero sobre una máqu
 ### 1.2 Estrategia de Persistencia y Automatización
 Para garantizar la continuidad del desarrollo sin perder configuraciones ni datos:
 
-1. **Automatización de Paquetes (`~/.customize_environment`):**
+1. **Automatización de Paquetes y Configuración PHP (`~/.customize_environment`):**
    - Script nativo de Cloud Shell ubicado en `/home/angelomarsanz/.customize_environment`.
    - Se ejecuta automáticamente con privilegios de `root` cada vez que el contenedor se aprovisiona.
    - Instala las dependencias del sistema: `php8.3-intl`, `php8.3-sqlite3`, `lftp` y `mariadb-server`.
+   - Configura la directiva `zend.assertions = 1` en PHP 8.3 (mediante el módulo `/etc/php/8.3/mods-available/cakephp-dev.ini` habilitado con `phpenmod` y en `/etc/php/8.3/cli/php.ini`) para habilitar las comprobaciones en tiempo de ejecución exigidas por CakePHP 5 en entorno de desarrollo.
 
 2. **Persistencia de Base de Datos (`/home/angelomarsanz/mariadb_data`):**
    - El directorio de datos (`datadir`) de MariaDB se encuentra alojado dentro del almacenamiento persistente del usuario en `/home/angelomarsanz/mariadb_data`.
@@ -26,7 +27,7 @@ Para garantizar la continuidad del desarrollo sin perder configuraciones ni dato
 
 3. **Script de Verificación y Restauración Rápida (`preparar_entorno.sh`):**
    - Ubicación: `/home/angelomarsanz/sistemasangabriel_54/preparar_entorno.sh`
-   - Permite verificar o restaurar manualmente en segundos el estado de las extensiones PHP, permisos del home y servicio MariaDB.
+   - Permite verificar o restaurar manualmente en segundos el estado de las extensiones PHP, la directiva `zend.assertions = 1`, permisos del home y servicio MariaDB.
    - Uso:
      ```bash
      ./preparar_entorno.sh
@@ -38,3 +39,4 @@ Para iniciar el servidor integrado de CakePHP 5.4 en Cloud Shell:
 bin/cake server -H 0.0.0.0 -p 8080
 ```
 La aplicación queda accesible mediante la funcionalidad de "Vista previa en la web" (puerto 8080) de Cloud Shell Editor.
+En modo desarrollo, CakePHP 5 valida que `zend.assertions` esté configurado en `1` para compilar y ejecutar aserciones de invariantes y contratos de código en el núcleo del framework. Con este ajuste aplicado, la pantalla de bienvenida valida el 100% de los requisitos del entorno sin advertencias.
